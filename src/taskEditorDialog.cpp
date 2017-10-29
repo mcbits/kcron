@@ -719,37 +719,6 @@ bool TaskEditorDialog::checkCommand() {
 		return false;
 	}
 
-
-	QString path = pathCommand.at(0);
-	QString binaryCommand = pathCommand.at(1);
-
-	logDebug() << "Looking for " << binaryCommand << "in" << path << endl;
-
-	bool found = false;
-	bool exec = false;
-	if (!QStandardPaths::findExecutable(binaryCommand, QStringList() << path).isEmpty() || specialValidCommands.contains(binaryCommand))
-		found = true;
-	// FIXME check if actually executable
-	if (found)
-		exec = true;
-
-	if (found && !exec) {
-		setupTitleWidget(i18n("<i>Please select an executable program...</i>"), KTitleWidget::ErrorMessage);
-		okButton->setEnabled(false);
-		command->setFocus();
-		commandIcon->setPixmap(missingCommandPixmap);
-		return false;
-	}
-
-	if (!found) {
-		setupTitleWidget(i18n("<i>Please browse for a program to execute...</i>"), KTitleWidget::ErrorMessage);
-		okButton->setEnabled(false);
-		command->setFocus();
-		commandIcon->setPixmap(missingCommandPixmap);
-		return false;
-	}
-
-
 	return true;
 }
 
